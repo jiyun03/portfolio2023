@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { Suspense } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "./theme/themeProvider";
+import { GlobalStyle } from "./theme/GlobalStyle";
+import Lists from "./components/portfolio/Lists";
+import Visual from "./components/main/Visual";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider>
+        <GlobalStyle />
+        <Suspense fallback={<div>...loading</div>}>
+          <Routes>
+            <Route exact path="/" element={<Visual />} />
+            <Route exact path="/portfolio" element={<Lists />} />
+          </Routes>
+        </Suspense>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
-
 export default App;
