@@ -34,10 +34,10 @@ const ListsWrapper = styled.div`
   margin-top: 5rem;
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -5px;
+  margin: 0 -10px;
   > div {
-    flex: 0 0 50%;
-    max-width: 50%;
-    padding: 0 5px;
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+    padding: 0 10px;
   }
 `

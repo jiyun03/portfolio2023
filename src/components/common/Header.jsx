@@ -55,7 +55,7 @@ const heartbeat = keyframes`
 
 const HeaderWrapper = styled.header`
   position: sticky;
-  top: 0;
+  top: 1.5rem;
   margin: 1.5rem;
   z-index: 1000;
   .header {
