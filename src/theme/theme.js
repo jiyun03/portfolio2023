@@ -1,13 +1,19 @@
 export const lightTheme = {
-  bgColor: '#F8F7F2',
+  bgColor: '#f8f7f4',
+  bgColor2: '#fff',
   textColor: '#31303E',
   borderColor: '1px solid #eaeaea',
+  headerShadow: '0 4px 15px rgba(0, 0, 0, 0.05)',
+  headerHover: 'rgba(0, 0, 0, 0.05)',
 }
 
 export const darkTheme = {
-  bgColor: '#1E1E22',
+  bgColor: '#121212',
+  bgColor2: '#1E1E1E',
   textColor: '#CCC',
   borderColor: '1px solid #2C2D33',
+  headerShadow: 'none',
+  headerHover: 'rgba(255, 255, 255, 0.1)',
 }
 
 export const theme = {

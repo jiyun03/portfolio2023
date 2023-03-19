@@ -1,34 +1,92 @@
-import React from "react";
-import styled from "styled-components";
+import { useTheme } from 'context/themeProvider'
+import { animated, useTransition } from 'react-spring'
 
-function ThemeToggle({ toggle, mode }) {
+import { ReactComponent as IconThemeDark } from 'assets/icon/theme_dark.svg'
+import { ReactComponent as IconThemeLight } from 'assets/icon/theme_light.svg'
+import styled from 'styled-components'
+
+export default function ThemeToggle() {
+  const [themeMode, toggleTheme] = useTheme()
+  const isDark = themeMode === 'dark'
+  const transitions = useTransition(isDark, {
+    initial: {
+      transform: 'scale(1) rotate(0deg)',
+      opacity: 1,
+    },
+    from: {
+      transform: 'scale(0) rotate(-180deg)',
+      opacity: 0,
+    },
+    enter: {
+      transform: 'scale(1) rotate(0deg)',
+      opacity: 1,
+    },
+    leave: {
+      transform: 'scale(0) rotate(180deg)',
+      opacity: 0,
+    },
+    reverse: true,
+  })
+
   return (
-    <ToggleWrapper onClick={toggle} mode={mode}>
-      {mode === "dark" ? "fdasdsfasdfsdafd" : "afsdasdfdf"}
+    <ToggleWrapper>
+      <ToggleButton onClick={toggleTheme} mode={themeMode}>
+        {transitions((style, item) =>
+          item ? (
+            <Positioner>
+              <AnimatedSVGWrapper style={style}>
+                <IconThemeDark />
+              </AnimatedSVGWrapper>
+            </Positioner>
+          ) : (
+            <Positioner>
+              <AnimatedSVGWrapper style={style}>
+                <IconThemeLight />
+              </AnimatedSVGWrapper>
+            </Positioner>
+          )
+        )}
+      </ToggleButton>
     </ToggleWrapper>
-  );
+  )
 }
 
-export default ThemeToggle;
+const ToggleWrapper = styled.div`
+  background: none;
+`
 
-const ToggleWrapper = styled.button`
-  position: fixed;
-  z-index: 999999;
-  bottom: 4%;
-  right: 3%;
+const ToggleButton = styled.div`
+  position: relative;
+  padding: 0.8rem;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  box-sizing: content-box;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: ${({ theme }) => theme.headerHover};
+  }
+  svg {
+    display: block;
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+`
 
-  background-color: ${(props) => props.theme.bgColor};
-  border: ${(props) => props.theme.borderColor};
-  font-size: 20px;
+const Positioner = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 96px;
-  height: 48px;
-  border-radius: 30px;
-  box-shadow: ${(props) =>
-    props.mode === "dark"
-      ? "0px 5px 10px rgba(40, 40, 40, 1), 0px 2px 4px rgba(40, 40, 40, 1)"
-      : "0 5px 10px rgba(100, 100, 100, 0.15), 0 2px 4px rgba(100, 100, 100, 0.15)"};
-`;
+const SVGWrapper = styled.div`
+  color: ${({ theme }) => theme.textColor};
+  svg {
+    display: block;
+  }
+`
+
+const AnimatedSVGWrapper = animated(SVGWrapper)
