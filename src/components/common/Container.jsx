@@ -9,7 +9,6 @@ const ContainerWrapper = styled.div`
   padding: 0 1.5rem;
   margin-left: auto;
   margin-right: auto;
-  max-width: 1200px;
   ${(props) =>
     props.type === 'view' &&
     `
