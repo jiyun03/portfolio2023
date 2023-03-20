@@ -25,8 +25,8 @@ export default function ListsItem({ item }) {
             </DimWrapper>
           )}
         </div>
-        <div>{item.title}</div>
-        <div>{item.subtitle}</div>
+        <div className="lists__subtitle">{item.subtitle}</div>
+        <div className="lists__title">{item.title}</div>
         <div>{item.date}</div>
         <div>{item.works}</div>
       </>
