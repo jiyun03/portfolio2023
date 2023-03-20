@@ -39,5 +39,13 @@ const ListsWrapper = styled.div`
     flex: 0 0 33.3333%;
     max-width: 33.3333%;
     padding: 0 10px;
+    ${({ theme }) => theme.lg`
+      flex: 0 0 50%;
+      max-width: 50%;
+    `}
+    ${({ theme }) => theme.sm`
+      flex: 0 0 100%;
+      max-width: 100%;
+    `}
   }
 `

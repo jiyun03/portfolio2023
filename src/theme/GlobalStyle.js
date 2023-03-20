@@ -2,13 +2,11 @@ import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 
 // Montserrat
-import MontserratEot from 'assets/fonts/Montserrat/Montserrat-SemiBold.eot'
 import MontserratWoff from 'assets/fonts/Montserrat/Montserrat-SemiBold.woff'
 import MontserratWoff2 from 'assets/fonts/Montserrat/Montserrat-SemiBold.woff2'
 import MontserratSvg from 'assets/fonts/Montserrat/Montserrat-SemiBold.svg'
 
 // SaolDisplay
-import SaolDisplayEot from 'assets/fonts/SaolDisplay/SaolDisplay-Regular.eot'
 import SaolDisplayWoff from 'assets/fonts/SaolDisplay/SaolDisplay-Regular.woff'
 import SaolDisplayWoff2 from 'assets/fonts/SaolDisplay/SaolDisplay-Regular.woff2'
 import SaolDisplaySvg from 'assets/fonts/SaolDisplay/SaolDisplay-Regular.svg'
@@ -25,31 +23,39 @@ import NanumBarunGothicBoldOtf from 'assets/fonts/NanumBarunGothic/NanumBarunGot
 // NotoSansKR
 import NotoSansKRWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Regular.woff2'
 import NotoSansKRWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Regular.woff'
-import NotoSansKROtf from 'assets/fonts/NotoSansKR/NotoSansKR-Regular.otf'
+
+import NotoSansKRMediumWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Medium.woff2'
+import NotoSansKRMediumWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Medium.woff'
+
+import NotoSansKRBoldWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Bold.woff2'
+import NotoSansKRBoldWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Bold.woff'
+
+import NotoSansKRBlackWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Black.woff2'
+import NotoSansKRBlackWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Black.woff'
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
+  // Montserrat
   @font-face {
     font-family: 'Montserrat';
-    src: url('${MontserratEot}');
-    src: url('${MontserratEot}?#iefix') format('embedded-opentype'),
-        url('${MontserratWoff2}') format('woff2'),
+    font-weight: 600;
+    src: url('${MontserratWoff2}');
+    src: url('${MontserratWoff2}') format('woff2'),
         url('${MontserratWoff}') format('woff'),
         url('${MontserratSvg}#Montserrat-SemiBold') format('svg');
-    font-weight: 600;
   }
+  // SaolDisplay
   @font-face {
     font-family: 'SaolDisplay';
-    src: url('${SaolDisplayEot}');
-    src: url('${SaolDisplayEot}?#iefix') format('embedded-opentype'),
-        url('${SaolDisplayWoff2}') format('woff2'),
+    font-weight: 600;
+    src: url('${SaolDisplayWoff2}');
+    src: url('${SaolDisplayWoff2}') format('woff2'),
         url('${SaolDisplayWoff}') format('woff'),
         url('${SaolDisplaySvg}#Montserrat-SemiBold') format('svg');
-    font-weight: 600;
   }
+  // NanumBarunGothic
   @font-face {
     font-family: 'NanumBarunGothic';
-    font-style: normal;
     font-weight: 400;
     src: 
         url('${NanumBarunGothicWoff2}') format('woff2'), 
@@ -58,21 +64,40 @@ export const GlobalStyle = createGlobalStyle`
   }
   @font-face {
     font-family: 'NanumBarunGothic';
-    font-style: normal;
     font-weight: 700;
     src:
         url('${NanumBarunGothicBoldWoff2}') format('woff2'), 
         url('${NanumBarunGothicBoldWoff}') format('woff'),
         url('${NanumBarunGothicBoldOtf}') format('opentype');
   }
+  // NotoSansKR
   @font-face {
     font-family: 'NotoSansKR';
-    font-style: normal;
-    font-weight: 700;
+    font-weight: 400;
     src:
         url('${NotoSansKRWoff2}') format('woff2'), 
-        url('${NotoSansKRWoff}') format('woff'),
-        url('${NotoSansKROtf}') format('opentype');
+        url('${NotoSansKRWoff}') format('woff');
+  }
+  @font-face {
+    font-family: 'NotoSansKR';
+    font-weight: 500;
+    src:
+        url('${NotoSansKRMediumWoff2}') format('woff2'), 
+        url('${NotoSansKRMediumWoff}') format('woff');
+  }
+  @font-face {
+    font-family: 'NotoSansKR';
+    font-weight: 700;
+    src:
+        url('${NotoSansKRBoldWoff2}') format('woff2'), 
+        url('${NotoSansKRBoldWoff}') format('woff');
+  }
+  @font-face {
+    font-family: 'NotoSansKR';
+    font-weight: 900;
+    src:
+        url('${NotoSansKRBlackWoff2}') format('woff2'), 
+        url('${NotoSansKRBlackWoff}') format('woff');
   }
 
   html,
@@ -85,15 +110,15 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     font-size: 16px;
     line-height: 1.6;
-    word-break: break-word;
+    word-break: keep-all;
     ${({ theme }) => theme.lg`
-      font-size: 13px;
+      font-size: 14px;
     `}
     ${({ theme }) => theme.md`
-      font-size: 12px;
+      font-size: 13px;
     `}
     ${({ theme }) => theme.sm`
-      font-size: 11px;
+      font-size: 13px;
     `}
   }
   *,
