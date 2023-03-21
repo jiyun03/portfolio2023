@@ -18,10 +18,10 @@ export default function App() {
         <Suspense fallback={<div>...loading</div>}>
           <Routes>
             <Route exact path="/" element={<Main />} />
-            <Route exact path="/point" element={<Point />} />
-            <Route exact path="/portfolio" element={<Lists />} />
-            <Route exact path="/about" element={<About />} />
-            <Route exact path="/contact" element={<Contact />} />
+            <Route exact path="point" element={<Point />} />
+            <Route exact path="portfolio" element={<Lists />} />
+            <Route exact path="about" element={<About />} />
+            <Route exact path="contact" element={<Contact />} />
           </Routes>
         </Suspense>
       </ThemeProvider>

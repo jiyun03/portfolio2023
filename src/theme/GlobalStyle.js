@@ -103,7 +103,7 @@ export const GlobalStyle = createGlobalStyle`
   html,
   body {
     position: relative;
-    background: ${({ theme }) => theme.bgColor};
+    background: ${({ theme }) => theme.bgHeader};
     color: ${({ theme }) => theme.textColor};
     font-family: 'NanumBarunGothic';
     font-family: 'NotoSansKR';

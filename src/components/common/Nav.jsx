@@ -74,7 +74,7 @@ const NavWrapper = styled.nav`
   height: 100%;
   padding: 12rem 0;
   overflow-y: scroll;
-  background-color: ${({ theme }) => theme.bgColor};
+  background-color: ${({ theme }) => theme.bgHeader};
   visibility: hidden;
   opacity: 0;
   z-index: 900;

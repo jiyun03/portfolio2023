@@ -107,7 +107,7 @@ const ListsItemWrapper = styled.div`
         }
       }
       &-wrap {
-        margin-top: 1.5rem;
+        margin-top: 1rem;
       }
     }
   }

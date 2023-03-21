@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 export default function PointItem({ item }) {
   const tag = item ? item.title.tag.split('|') : ''
-  console.log(item)
+
   return (
     <PointItemWrapper>
       <div>{item.title.title}</div>
