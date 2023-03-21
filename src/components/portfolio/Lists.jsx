@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import Container from 'components/common/Container'
+import Title from 'components/common/Title'
+import Search from 'components/common/Search'
 import ListsItem from './ListsItem'
 
 import axios from 'axios'
@@ -9,26 +11,99 @@ import styled from 'styled-components'
 const path = process.env.PUBLIC_URL
 
 export default function Lists() {
-  const [lists, setLists] = useState('')
+  const defaultLimit = 6
+  const [lists, setLists] = useState([])
+  const [listsSort, setListsSort] = useState([])
+  const [listsLimit, setListsLimit] = useState(defaultLimit)
+
+  // [검색] input에 작성한 타이틀, 서브타이틀 검색
+  const searchChange = (e) => {
+    const keyword = e.target.value
+    const search = lists.filter((src) => {
+      return src.title.includes(keyword) || src.subtitle.includes(keyword)
+    })
+    setListsSort(search)
+  }
+
+  // [더보기] 더보기 버튼
+  const listsMore = () => {
+    if (listsSort.length > listsLimit) {
+      setListsLimit(listsLimit + 6)
+    } else {
+      setListsLimit(defaultLimit)
+    }
+  }
 
   useEffect(() => {
+    // [리스트] 리스트 json 데이터 불러오기
     axios
       .get(`${path}/DB/portfolio.json`)
       .then((json) => setLists(json.data.portfolio))
   }, [])
 
+  useEffect(() => {
+    // [리스트] sort 된 리스트 목록 state 업데이트
+    setListsSort(lists)
+  }, [lists])
+
   return (
     <Container>
+      <Title
+        content={{
+          title: '프로젝트 목록',
+          subtitle: '재직중 작업한 프로젝트 목록입니다 :)',
+        }}
+      />
+      <ToolWrapper>
+        <SortWrapper>
+          총 <span>{listsSort.length}</span>개
+        </SortWrapper>
+        <div>
+          <Search onChange={searchChange} />
+        </div>
+      </ToolWrapper>
       <ListsWrapper>
-        {lists.length !== 0
-          ? lists.map((item, idx) => {
+        {listsSort.length !== 0
+          ? listsSort.map((item, idx) => {
+              if (idx > listsLimit - 1) return
               return <ListsItem key={idx} item={item} />
             })
-          : '없습니다'}
+          : '결과가 없습니다'}
       </ListsWrapper>
+      {listsSort.length !== 0 && (
+        <ListsMore>
+          <button type="button" onClick={listsMore}>
+            {listsSort.length > listsLimit ? '더보기' : '접기'}
+          </button>
+        </ListsMore>
+      )}
     </Container>
   )
 }
+
+const ToolWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+`
+
+const ListsMore = styled.div`
+  margin-bottom: 5rem;
+  text-align: center;
+  button {
+    min-width: 9rem;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    color: ${({ theme }) => theme.textColor};
+    border: ${({ theme }) => theme.borderColor};
+    border-radius: 15px;
+    cursor: pointer;
+  }
+`
+
+const SortWrapper = styled.div``
 
 const ListsWrapper = styled.div`
   margin-top: 5rem;

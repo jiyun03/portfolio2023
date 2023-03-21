@@ -7,6 +7,7 @@ export default function Container({ type, children }) {
 const ContainerWrapper = styled.div`
   width: 100%;
   padding: 0 1.5rem;
+  margin-top: 4rem;
   margin-left: auto;
   margin-right: auto;
   ${(props) =>

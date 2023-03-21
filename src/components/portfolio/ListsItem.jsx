@@ -54,7 +54,7 @@ export default function ListsItem({ item }) {
   return (
     <ListsItemWrapper>
       {item.status === 'on' ? (
-        <Link to={item.link} target="_blank">
+        <Link to={item.link} target="_blank" className="lists__link">
           <Content />
         </Link>
       ) : (
@@ -71,15 +71,22 @@ const rotateInfinite = keyframes`
 
 const ListsItemWrapper = styled.div`
   margin-bottom: 5rem;
-  transition: transform 0.3s;
-  &:hover {
-    transform: translateY(-10px);
-  }
   .lists {
+    &__link {
+      display: block;
+      transition: transform 0.3s;
+      &:hover {
+        transform: translateY(-10px);
+        .lists__img {
+          box-shadow: ${({ theme }) => theme.listsShadow};
+        }
+      }
+    }
     &__img {
       position: relative;
       border-radius: 15px;
       overflow: hidden;
+      transition: box-shadow 0.3s;
     }
     &__title {
       font-size: 1.25rem;
