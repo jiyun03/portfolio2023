@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Container from 'components/common/Container'
 import Title from 'components/common/Title'
 import Search from 'components/common/Search'
+import Sort from 'components/common/Sort'
 import ListsItem from './ListsItem'
 
 import axios from 'axios'
@@ -15,18 +16,64 @@ export default function Lists() {
   const [lists, setLists] = useState([])
   const [listsSort, setListsSort] = useState([])
   const [listsLimit, setListsLimit] = useState(defaultLimit)
+  const sortDefault = [
+    {
+      id: 'company',
+      item: [],
+    },
+    {
+      id: 'year',
+      item: [],
+    },
+    {
+      id: 'type',
+      item: [],
+    },
+  ]
+  const [sortArray, setSortArray] = useState(sortDefault)
 
   // [검색] input에 작성한 타이틀, 서브타이틀 검색
   const searchChange = (e) => {
-    const keyword = e.target.value
-    const search = lists.filter((src) => {
+    const keyword = e.target.value.toLowerCase()
+    const search = lists.filter((list) => {
       return (
-        src.title.toLowerCase().includes(keyword.toLowerCase()) ||
-        src.subtitle.toLowerCase().includes(keyword.toLowerCase())
+        list.title.toLowerCase().includes(keyword) ||
+        list.subtitle.toLowerCase().includes(keyword)
       )
     })
     setListsSort(search)
   }
+
+  const sortContents = [
+    {
+      name: '회사별',
+      item: [
+        { id: 'individual', name: '개인' },
+        { id: 'dfy', name: 'Dfy' },
+        { id: 'sprint', name: '스프린트' },
+      ],
+    },
+    {
+      name: '년도별',
+      item: [
+        { id: 'year2023', name: '2023' },
+        { id: 'year2022', name: '2022' },
+        { id: 'year2021', name: '2021' },
+      ],
+    },
+    {
+      name: '타입별',
+      item: [
+        { id: 'type2023', name: '2023' },
+        { id: 'type2022', name: '2022' },
+        { id: 'type2021', name: '2021' },
+      ],
+    },
+  ]
+
+  useEffect(() => {
+    console.log('change', sortArray)
+  }, [sortArray])
 
   // [더보기] 더보기 버튼
   const listsMore = () => {
@@ -64,10 +111,20 @@ export default function Lists() {
         }}
       />
       <ToolWrapper>
-        <SortWrapper>
+        <div className="total">
           총 <span>{listsSort.length}</span>개
-        </SortWrapper>
-        <div>
+        </div>
+        <div className="tool">
+          <SortWrapper>
+            <Sort
+              content={sortContents}
+              sort={{
+                sortDefault: sortDefault,
+                sortArray: sortArray,
+                setSortArray: setSortArray,
+              }}
+            />
+          </SortWrapper>
           <Search onChange={searchChange} />
         </div>
       </ToolWrapper>
@@ -96,6 +153,10 @@ const ToolWrapper = styled.div`
   justify-content: space-between;
   padding: 0 0.5rem 0 1rem;
   margin-bottom: 1rem;
+  .tool {
+    display: flex;
+    align-items: end;
+  }
 `
 
 const ListsMore = styled.div`

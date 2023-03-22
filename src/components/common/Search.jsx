@@ -68,10 +68,11 @@ const SearchWrapper = styled.div`
       overflow: hidden;
       transition: width 0.3s, visibility 0.3s;
       input {
-        width: 14rem;
+        width: 100%;
         height: 2rem;
-        padding-right: 2rem;
+        // padding-right: 2rem;
         font-size: 1rem;
+        color: ${({ theme }) => theme.textColor};
         background: none;
         border: none;
         outline: none;
