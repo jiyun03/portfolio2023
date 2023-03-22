@@ -58,6 +58,10 @@ const HeaderWrapper = styled.header`
   top: 1.5rem;
   margin: 1.5rem;
   z-index: 1000;
+  ${({ theme }) => theme.sm`
+    top: 15px;
+    margin: 15px;
+  `}
   .header {
     display: flex;
     align-items: center;

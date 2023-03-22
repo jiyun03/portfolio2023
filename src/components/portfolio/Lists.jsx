@@ -20,7 +20,10 @@ export default function Lists() {
   const searchChange = (e) => {
     const keyword = e.target.value
     const search = lists.filter((src) => {
-      return src.title.includes(keyword) || src.subtitle.includes(keyword)
+      return (
+        src.title.toLowerCase().includes(keyword.toLowerCase()) ||
+        src.subtitle.toLowerCase().includes(keyword.toLowerCase())
+      )
     })
     setListsSort(search)
   }
@@ -51,7 +54,13 @@ export default function Lists() {
       <Title
         content={{
           title: '프로젝트 목록',
-          subtitle: '재직중 작업한 프로젝트 목록입니다 :)',
+          subtitle: (
+            <>
+              재직중 작업한 프로젝트 목록입니다.
+              <br />
+              모든 사이트는 반응형으로 제작되었습니다 :)
+            </>
+          ),
         }}
       />
       <ToolWrapper>
@@ -70,7 +79,7 @@ export default function Lists() {
             })
           : '결과가 없습니다'}
       </ListsWrapper>
-      {listsSort.length !== 0 && (
+      {listsSort.length > defaultLimit - 1 && (
         <ListsMore>
           <button type="button" onClick={listsMore}>
             {listsSort.length > listsLimit ? '더보기' : '접기'}
@@ -83,9 +92,9 @@ export default function Lists() {
 
 const ToolWrapper = styled.div`
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
-  padding: 0 1rem;
+  padding: 0 0.5rem 0 1rem;
   margin-bottom: 1rem;
 `
 

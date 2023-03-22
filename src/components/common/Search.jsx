@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import { ReactComponent as IconSearch } from 'assets/icon/search.svg'
 
@@ -8,26 +8,31 @@ export default function Search({ onChange }) {
   const [inputShow, setInputShow] = useState(false)
   const input = useRef(null)
 
+  useEffect(() => {
+    if (inputShow) {
+      setTimeout(() => {
+        input.current.focus()
+      }, 100)
+    }
+  }, [inputShow])
+
   return (
     <SearchWrapper show={inputShow}>
       <div className="search-wrap">
-        <IconSearch
-          onClick={() => {
-            setInputShow(!inputShow)
-            if (inputShow) {
-              setTimeout(() => {
-                input.current.focus()
-              }, 100)
-            }
-          }}
-        />
-        <input
-          type="text"
-          placeholder="타이틀, 내용을 입력해 주세요."
-          ref={input}
-          onChange={onChange}
-          onBlur={() => setInputShow(false)}
-        />
+        <IconSearch onClick={() => setInputShow(!inputShow)} />
+        <div className="search__box">
+          <input
+            type="text"
+            placeholder="타이틀, 내용을 입력해 주세요."
+            ref={input}
+            onChange={onChange}
+            onBlur={(e) => {
+              if (e.target.value === '') {
+                setInputShow(false)
+              }
+            }}
+          />
+        </div>
       </div>
     </SearchWrapper>
   )
@@ -38,28 +43,49 @@ const SearchWrapper = styled.div`
     &-wrap {
       display: flex;
       align-items: center;
-      // width: 20rem;
-      // border: ${({ theme }) => theme.borderColor};
+      margin-bottom: -1rem;
       border-radius: 20px;
-      // background-color: ${({ theme }) => theme.bgSearch};
       transition: width 0.3s;
       svg {
-        margin-right: 0.5rem;
-        width: 1.5rem;
-        min-width: 1.5rem;
-        height: 1.5rem;
+        padding: 1rem 0.5rem;
+        width: 2.5rem;
+        min-width: 2.5rem;
+        height: 3.5rem;
         cursor: pointer;
+        path {
+          fill: ${({ theme }) => theme.textColor};
+        }
       }
+    }
+    &__box {
+      display: flex;
+      align-items: center;
+      width: 0;
+      height: 2rem;
+      background: none;
+      border-bottom: ${({ theme }) => theme.borderColor};
+      visibility: hidden;
+      overflow: hidden;
+      transition: width 0.3s, visibility 0.3s;
       input {
-        width: 0;
+        width: 14rem;
         height: 2rem;
+        padding-right: 2rem;
         font-size: 1rem;
         background: none;
         border: none;
-        border-bottom: ${({ theme }) => theme.borderColor};
         outline: none;
-        visibility: hidden;
-        transition: width 0.3s, visibility 0.3s;
+      }
+    }
+    &__empty {
+      width: 2rem;
+      height: 2rem;
+      margin-left: -2rem;
+      svg {
+        padding: 0.5rem;
+        width: 100%;
+        min-width: 100%;
+        height: 100%;
       }
     }
   }
@@ -67,11 +93,9 @@ const SearchWrapper = styled.div`
     props.show &&
     `
     .search {
-      &-wrap {
-        input {
-          width: 14rem;
-          visibility: visible;
-        }
+      &__box {
+        width: 14rem;
+        visibility: visible;
       }
     }
   `}

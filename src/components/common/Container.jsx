@@ -15,4 +15,7 @@ const ContainerWrapper = styled.div`
     `
     max-width: 1000px;
   `}
+  ${({ theme }) => theme.sm`
+    padding: 0 15px;
+  `}
 `

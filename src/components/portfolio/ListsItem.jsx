@@ -9,6 +9,25 @@ const path = process.env.PUBLIC_URL
 
 export default function ListsItem({ item }) {
   const Content = () => {
+    const types = item.type.split('|')
+    const contents = [
+      {
+        name: '기간',
+        content: item.date,
+      },
+      {
+        name: '작업도',
+        content: item.works,
+      },
+      {
+        name: '기술스택',
+        class: 'type',
+        content: types.map((type, idx) => {
+          return <span key={idx}>#{type}</span>
+        }),
+      },
+    ]
+
     return (
       <>
         <div className="lists__img">
@@ -30,22 +49,22 @@ export default function ListsItem({ item }) {
           <div className="lists__subtitle">{item.subtitle}</div>
         </div>
         <div className="lists__content-wrap">
-          <div className="lists__content">
-            <div className="lists__content-item lists__content-item--title">
-              기간
-            </div>
-            <div className="lists__content-item lists__content-item--content">
-              {item.date}
-            </div>
-          </div>
-          <div className="lists__content">
-            <div className="lists__content-item lists__content-item--title">
-              작업도
-            </div>
-            <div className="lists__content-item lists__content-item--content">
-              {item.works}
-            </div>
-          </div>
+          {contents.map((content, idx) => {
+            return (
+              <div key={idx} className="lists__content">
+                <div className="lists__content-item lists__content-item--title">
+                  {content.name}
+                </div>
+                <div
+                  className={`lists__content-item lists__content-item--content ${
+                    content.class ? `lists__content-item--${content.class}` : ''
+                  }`}
+                >
+                  {content.content}
+                </div>
+              </div>
+            )
+          })}
         </div>
       </>
     )
@@ -108,6 +127,18 @@ const ListsItemWrapper = styled.div`
           font-weight: 700;
           width: 6rem;
           max-width: 6rem;
+        }
+        &--type {
+          span {
+            display: inline-block;
+            margin-right: 0.5rem;
+            padding: 0.2rem 0.5rem 0.3rem;
+            font-size: 0.75rem;
+            line-height: 1;
+            color: ${({ theme }) => theme.textColor2};
+            background: ${({ theme }) => theme.bgType};
+            border-radius: 15px;
+          }
         }
         &:not(:last-child) {
           margin-bottom: 0.2rem;
