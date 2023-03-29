@@ -43,12 +43,11 @@ const SearchWrapper = styled.div`
     &-wrap {
       display: flex;
       align-items: center;
-      margin-bottom: -1rem;
       border-radius: 20px;
       transition: width 0.3s;
       svg {
-        padding: 1rem 0.5rem;
-        width: 2.5rem;
+        padding: 1rem;
+        width: 3.5rem;
         min-width: 2.5rem;
         height: 3.5rem;
         cursor: pointer;

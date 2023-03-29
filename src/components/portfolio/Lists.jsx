@@ -27,6 +27,17 @@ export default function Lists() {
       item: [],
     },
   ]
+  // 전체 리스트 배열
+  const [lists, setLists] = useState([])
+  // sort 된 리스트 배열 (검색, sort)
+  const [listsSort, setListsSort] = useState([])
+  const [listsSortSearch, setListsSortSearch] = useState('')
+  const [listsSortYear, setListsSortYear] = useState([])
+  const [listsSortType, setListsSortType] = useState([])
+  // 리스트 limit 값 배열
+  const [listsLimit, setListsLimit] = useState(defaultLimit)
+  // sort 저장용 배열
+  const [sortArray, setSortArray] = useState(sortDefault)
   const sortContents = [
     {
       name: '회사별',
@@ -37,31 +48,14 @@ export default function Lists() {
       ],
     },
     {
-      name: '년도별',
-      item: [
-        { id: '2022', name: '2022' },
-        { id: '2021', name: '2021' },
-        { id: '2020', name: '2020' },
-      ],
+      name: '연도별',
+      item: listsSortYear,
     },
     {
       name: '타입별',
-      item: [
-        { id: 'React', name: 'React' },
-        { id: 'SCSS', name: 'SCSS' },
-        { id: 'Firebase', name: 'Firebase' },
-      ],
+      item: listsSortType,
     },
   ]
-  // 전체 리스트 배열
-  const [lists, setLists] = useState([])
-  // sort 된 리스트 배열 (검색, sort)
-  const [listsSort, setListsSort] = useState([])
-  const [listsSortSearch, setListsSortSearch] = useState('')
-  // 리스트 limit 값 배열
-  const [listsLimit, setListsLimit] = useState(defaultLimit)
-  // sort 저장용 배열
-  const [sortArray, setSortArray] = useState(sortDefault)
 
   // 검색어 state 저장
   const searchChange = (e) => {
@@ -115,21 +109,18 @@ export default function Lists() {
         : sortDuplicatesFind
 
     // [검색] input에 작성한 타이틀, 서브타이틀 검색
+    const searchLists = sortFlat.length === 0 ? lists : sortDuplicates
     const search =
       listsSortSearch !== ''
-        ? sortDuplicates.filter((list) => {
+        ? searchLists.filter((list) => {
             return (
               list.title.toLowerCase().includes(listsSortSearch) ||
               list.subtitle.toLowerCase().includes(listsSortSearch)
             )
           })
-        : sortDuplicates
+        : searchLists
 
-    if (sortFlat.length !== 0) {
-      setListsSort(search)
-    } else {
-      setListsSort(search)
-    }
+    setListsSort(search)
   }, [sortArray, lists, listsSortSearch])
 
   // [더보기] 더보기 버튼
@@ -147,6 +138,26 @@ export default function Lists() {
       .get(`${path}/DB/portfolio.json`)
       .then((json) => setLists(json.data.portfolio))
   }, [])
+
+  useEffect(() => {
+    if (lists.length !== 0) {
+      // 연도, 타입 설정
+      const yearsMap = new Map()
+      const typesMap = new Map()
+
+      lists.forEach((item) => {
+        const year = item.date.split('.')[0]
+        const type = item.type.split('|')
+        yearsMap.set(year, { id: year, name: `${year}년` })
+        type.forEach((itemType) => {
+          typesMap.set(itemType, { id: itemType, name: itemType })
+        })
+      })
+
+      setListsSortYear([...yearsMap.values()])
+      setListsSortType([...typesMap.values()])
+    }
+  }, [lists])
 
   useEffect(() => {
     // [리스트] sort 된 리스트 목록 state 업데이트
@@ -168,21 +179,22 @@ export default function Lists() {
         }}
       />
       <ToolWrapper>
+        <div className="tool">
+          <div className="tool__title-wrap">
+            <div className="tool__title">정렬</div>
+            <Search onChange={searchChange} />
+          </div>
+          <Sort
+            content={sortContents}
+            sort={{
+              sortDefault: sortDefault,
+              sortArray: sortArray,
+              setSortArray: setSortArray,
+            }}
+          />
+        </div>
         <div className="total">
           총 <span>{listsSort.length}</span>개
-        </div>
-        <div className="tool">
-          <SortWrapper>
-            <Sort
-              content={sortContents}
-              sort={{
-                sortDefault: sortDefault,
-                sortArray: sortArray,
-                setSortArray: setSortArray,
-              }}
-            />
-          </SortWrapper>
-          <Search onChange={searchChange} />
         </div>
       </ToolWrapper>
       <ListsWrapper>
@@ -205,14 +217,19 @@ export default function Lists() {
 }
 
 const ToolWrapper = styled.div`
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  padding: 0 0.5rem 0 1rem;
   margin-bottom: 1rem;
   .tool {
-    display: flex;
-    align-items: end;
+    background-color: #ececec;
+    border-radius: 20px;
+    &__title {
+      &-wrap {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+  .total {
+    padding: 0 0.5rem 0 1rem;
   }
 `
 
@@ -229,8 +246,6 @@ const ListsMore = styled.div`
     cursor: pointer;
   }
 `
-
-const SortWrapper = styled.div``
 
 const ListsWrapper = styled.div`
   margin-top: 5rem;
