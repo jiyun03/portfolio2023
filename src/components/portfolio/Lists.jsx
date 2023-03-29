@@ -43,7 +43,7 @@ export default function Lists() {
       name: '회사별',
       item: [
         { id: 'individual', name: '개인' },
-        { id: 'dfy', name: 'Dfy' },
+        { id: 'dfy', name: 'DFY' },
         { id: 'sprint', name: '스프린트' },
       ],
     },
@@ -217,29 +217,34 @@ export default function Lists() {
 }
 
 const ToolWrapper = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 16rem;
   .tool {
-    background-color: #ececec;
+    margin-bottom: 16rem;
+    padding: 25rem;
+    font-size: 16rem;
+    background-color: #f3f3f3;
     border-radius: 20px;
     &__title {
+      font-weight: 700;
       &-wrap {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 15rem;
       }
     }
   }
   .total {
-    padding: 0 0.5rem 0 1rem;
+    padding: 0 8rem 0 16rem;
   }
 `
 
 const ListsMore = styled.div`
-  margin-bottom: 5rem;
+  margin-bottom: 80rem;
   text-align: center;
   button {
-    min-width: 9rem;
-    padding: 1rem 3rem;
-    font-size: 1rem;
+    min-width: 144rem;
+    padding: 16rem 48rem;
+    font-size: 16rem;
     color: ${({ theme }) => theme.textColor};
     border: ${({ theme }) => theme.borderColor};
     border-radius: 15px;
@@ -248,7 +253,7 @@ const ListsMore = styled.div`
 `
 
 const ListsWrapper = styled.div`
-  margin-top: 5rem;
+  margin-top: 80rem;
   display: flex;
   flex-wrap: wrap;
   margin: 0 -10px;

@@ -31,7 +31,7 @@ export default function Point() {
 }
 
 const PointWrapper = styled.div`
-  margin-top: 5rem;
+  margin-top: 80rem;
   display: flex;
   flex-wrap: wrap;
   margin: 0 -5px;

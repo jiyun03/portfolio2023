@@ -19,9 +19,9 @@ export default function Hamburger({ show }) {
 
 const HamburgerWrapper = styled.div`
   position: relative;
-  width: 3.5rem;
-  height: 3.75rem;
-  padding: 1.25rem 1rem;
+  width: 56rem;
+  height: 60rem;
+  padding: 20rem 16rem;
   cursor: pointer;
   z-index: 1000;
   box-sizing: border-box;

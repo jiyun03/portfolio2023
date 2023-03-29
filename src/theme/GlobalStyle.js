@@ -108,18 +108,21 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'NanumBarunGothic';
     font-family: 'NotoSansKR';
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1px;
     line-height: 1.6;
     word-break: keep-all;
     ${({ theme }) => theme.lg`
-      font-size: 14px;
+      font-size: 0.9px;
     `}
     ${({ theme }) => theme.md`
-      font-size: 13px;
+      font-size: 0.9px;
     `}
     ${({ theme }) => theme.sm`
-      font-size: 13px;
+      font-size: 0.9px;
     `}
+  }
+  body {
+    font-size: 16rem;
   }
   *,
   *::before,

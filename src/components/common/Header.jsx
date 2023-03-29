@@ -55,8 +55,8 @@ const heartbeat = keyframes`
 
 const HeaderWrapper = styled.header`
   position: sticky;
-  top: 1.5rem;
-  margin: 1.5rem;
+  top: 24rem;
+  margin: 24rem;
   z-index: 1000;
   ${({ theme }) => theme.sm`
     top: 15px;
@@ -66,26 +66,26 @@ const HeaderWrapper = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-right: 1rem;
+    padding-right: 16rem;
     border-radius: 30px;
     background-color: ${({ theme }) => theme.bgColor};
     box-shadow: ${({ theme }) => theme.headerShadow};
     &__link {
       display: inline-block;
-      padding: 0.675rem 2rem;
+      padding: 10.8rem 32rem;
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.5rem;
+      font-size: 24rem;
       font-weight: 600;
       color: ${({ theme }) => theme.textColor};
     }
   }
   .heart {
     display: inline-block;
-    margin: 0 0.3rem;
+    margin: 0 4.8rem;
     animation: ${heartbeat} 2s linear infinite alternate;
     svg {
-      width: 1rem;
-      height: 1rem;
+      width: 16rem;
+      height: 16rem;
     }
   }
 `

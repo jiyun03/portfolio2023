@@ -39,15 +39,15 @@ export default function Gate() {
 }
 
 const GateWrapper = styled.div`
-  margin-top: 5rem;
+  margin-top: 80rem;
   text-align: center;
   z-index: 1;
   .menu {
     &__link {
       display: inline-block;
-      padding: 0.3rem 1.5rem;
+      padding: 76.8rem 24rem;
       font-family: 'SaolDisplay';
-      font-size: 3rem;
+      font-size: 48rem;
       transition: transform 0.3s cubic-bezier(0.345, 0, 0, 1);
       &:hover {
         transform: skewX(-15deg);

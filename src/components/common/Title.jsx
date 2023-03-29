@@ -10,15 +10,15 @@ export default function Title({ content }) {
 }
 
 const TitleWrapper = styled.div`
-  margin-bottom: 3rem;
+  margin-bottom: 48rem;
   // text-align: center;
   .title {
     &__title {
-      font-size: 3rem;
+      font-size: 48rem;
       font-weight: 700;
     }
     &__subtitle {
-      font-size: 1.2rem;
+      font-size: 19.2rem;
     }
   }
 `

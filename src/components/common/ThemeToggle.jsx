@@ -57,9 +57,9 @@ const ToggleWrapper = styled.div`
 
 const ToggleButton = styled.div`
   position: relative;
-  padding: 0.8rem;
-  width: 1.3rem;
-  height: 1.3rem;
+  padding: 12.8rem;
+  width: 23.68rem;
+  height: 23.68rem;
   border-radius: 50%;
   box-sizing: content-box;
   cursor: pointer;
@@ -70,8 +70,8 @@ const ToggleButton = styled.div`
   }
   svg {
     display: block;
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 23.68rem;
+    height: 23.68rem;
   }
 `
 

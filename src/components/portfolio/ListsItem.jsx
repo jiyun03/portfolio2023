@@ -89,7 +89,7 @@ const rotateInfinite = keyframes`
 `
 
 const ListsItemWrapper = styled.div`
-  margin-bottom: 5rem;
+  margin-bottom: 80rem;
   .lists {
     &__link {
       display: block;
@@ -108,15 +108,15 @@ const ListsItemWrapper = styled.div`
       transition: box-shadow 0.3s;
     }
     &__title {
-      font-size: 1.25rem;
+      font-size: 20rem;
       font-weight: 700;
       &-wrap {
-        margin-top: 1.25rem;
+        margin-top: 20rem;
       }
     }
     &__subtitle {
-      margin-top: 0.625rem;
-      font-size: 1rem;
+      margin-top: 10.5rem;
+      font-size: 16rem;
       color: ${({ theme }) => theme.textColor2};
       line-height: 1.5;
     }
@@ -125,15 +125,15 @@ const ListsItemWrapper = styled.div`
       &-item {
         &--title {
           font-weight: 700;
-          width: 6rem;
-          max-width: 6rem;
+          width: 96rem;
+          max-width: 96rem;
         }
         &--type {
           span {
             display: inline-block;
-            margin-right: 0.5rem;
-            padding: 0.2rem 0.5rem 0.3rem;
-            font-size: 0.75rem;
+            margin-right: 8rem;
+            padding: 3.2rem 8rem 4.8rem;
+            font-size: 12rem;
             line-height: 1;
             color: ${({ theme }) => theme.textColor2};
             background: ${({ theme }) => theme.bgType};
@@ -141,11 +141,12 @@ const ListsItemWrapper = styled.div`
           }
         }
         &:not(:last-child) {
-          margin-bottom: 0.2rem;
+          margin-bottom: 3.2rem;
         }
       }
       &-wrap {
-        margin-top: 1rem;
+        margin-top: 16rem;
+        font-size: 16rem;
       }
     }
   }
@@ -163,8 +164,8 @@ const DimWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   .lists__dim {
     svg {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 21.12rem;
+      height: 21.12rem;
       vertical-align: middle;
       animation: ${rotateInfinite} 5s linear infinite;
       ${({ theme }) => theme.lg`
@@ -178,8 +179,8 @@ const DimWrapper = styled.div`
     }
     &-title {
       display: inline-block;
-      margin-left: 0.5rem;
-      font-size: 1.2rem;
+      margin-left: 8rem;
+      font-size: 19rem;
       color: #ffffff;
       vertical-align: middle;
       ${({ theme }) => theme.lg`

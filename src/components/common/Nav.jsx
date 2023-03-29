@@ -72,7 +72,7 @@ const NavWrapper = styled.nav`
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 12rem 0;
+  padding: 192rem 0;
   overflow-y: scroll;
   background-color: ${({ theme }) => theme.bgHeader};
   visibility: hidden;
@@ -80,13 +80,16 @@ const NavWrapper = styled.nav`
   z-index: 900;
   transition: opacity 0.3s;
   text-align: center;
+  [type='view'] {
+    margin-top: 0;
+  }
   ${(props) =>
     props.show &&
     `
     visibility: visible;
     opacity: 1;
     .menu__item .menu__title {
-      height: 5.75rem;
+      height: 92rem;
       opacity: 1;
     }
   `}
@@ -95,7 +98,7 @@ const NavWrapper = styled.nav`
     props.theme.md`
     .menu__item {
       .menu__title {
-        height: 3.6rem;
+        height: 57.6rem;
       }
       .menu__img {
         display: none;
@@ -113,13 +116,13 @@ const MenuWrapper = styled.ul`
         .menu__link {
           &:hover {
             .menu__img {
-              transform: translate3d(3rem, -50%, 0) rotate(0deg);
+              transform: translate3d(48rem, -50%, 0) rotate(0deg);
             }
           }
         }
         .menu__img {
           right: 100%;
-          transform: translate3d(-3rem, -50%, 0) rotate(-10deg);
+          transform: translate3d(-48rem, -50%, 0) rotate(-10deg);
           transform-origin: bottom left;
         }
       }
@@ -127,13 +130,13 @@ const MenuWrapper = styled.ul`
         .menu__link {
           &:hover {
             .menu__img {
-              transform: translate3d(-3rem, -50%, 0) rotate(0deg);
+              transform: translate3d(-48rem, -50%, 0) rotate(0deg);
             }
           }
         }
         .menu__img {
           left: 100%;
-          transform: translate3d(-3rem, -50%, 0) rotate(-10deg);
+          transform: translate3d(-48rem, -50%, 0) rotate(-10deg);
           transform-origin: top right;
         }
       }
@@ -141,7 +144,7 @@ const MenuWrapper = styled.ul`
     &__link {
       position: relative;
       display: inline-block;
-      padding: 0.3rem 1.5rem;
+      padding: 4.8rem 24rem;
       &:hover {
         .menu {
           &__title {
@@ -162,18 +165,18 @@ const MenuWrapper = styled.ul`
       opacity: 0;
       overflow: hidden;
       font-family: 'SaolDisplay';
-      font-size: 4.8rem;
+      font-size: 76.8rem;
       line-height: 1.2;
       transition: height 1.2s cubic-bezier(0.345, 0, 0, 1),
         opacity 1.2s cubic-bezier(0.345, 0, 0, 1),
         transform 0.3s cubic-bezier(0.345, 0, 0, 1);
       ${({ theme }) => theme.md`
-        font-size: 3rem;
+        font-size: 48rem;
       `}
     }
     &__img {
-      width: 17rem;
-      height: 24rem;
+      width: 272rem;
+      height: 384rem;
       position: absolute;
       top: 50%;
       opacity: 0;

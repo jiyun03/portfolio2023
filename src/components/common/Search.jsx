@@ -39,6 +39,7 @@ export default function Search({ onChange }) {
 }
 
 const SearchWrapper = styled.div`
+  margin: -16rem;
   .search {
     &-wrap {
       display: flex;
@@ -46,10 +47,10 @@ const SearchWrapper = styled.div`
       border-radius: 20px;
       transition: width 0.3s;
       svg {
-        padding: 1rem;
-        width: 3.5rem;
-        min-width: 2.5rem;
-        height: 3.5rem;
+        padding: 16rem;
+        width: 56rem;
+        min-width: 2.8rem;
+        height: 56rem;
         cursor: pointer;
         path {
           fill: ${({ theme }) => theme.textColor};
@@ -60,7 +61,7 @@ const SearchWrapper = styled.div`
       display: flex;
       align-items: center;
       width: 0;
-      height: 2rem;
+      height: 32rem;
       background: none;
       border-bottom: ${({ theme }) => theme.borderColor};
       visibility: hidden;
@@ -68,9 +69,9 @@ const SearchWrapper = styled.div`
       transition: width 0.3s, visibility 0.3s;
       input {
         width: 100%;
-        height: 2rem;
-        // padding-right: 2rem;
-        font-size: 1rem;
+        height: 32rem;
+        // padding-right: 32rem;
+        font-size: 16rem;
         color: ${({ theme }) => theme.textColor};
         background: none;
         border: none;
@@ -78,11 +79,11 @@ const SearchWrapper = styled.div`
       }
     }
     &__empty {
-      width: 2rem;
-      height: 2rem;
-      margin-left: -2rem;
+      width: 32rem;
+      height: 32rem;
+      margin-left: -32rem;
       svg {
-        padding: 0.5rem;
+        padding: 8rem;
         width: 100%;
         min-width: 100%;
         height: 100%;
@@ -94,7 +95,8 @@ const SearchWrapper = styled.div`
     `
     .search {
       &__box {
-        width: 14rem;
+        width: 224rem;
+        margin-right: 16rem;
         visibility: visible;
       }
     }

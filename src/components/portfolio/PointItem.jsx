@@ -20,5 +20,5 @@ export default function PointItem({ item }) {
 
 const PointItemWrapper = styled.div`
   border: 1px solid #2b2b2b;
-  margin-bottom: 5rem;
+  margin-bottom: 80rem;
 `
