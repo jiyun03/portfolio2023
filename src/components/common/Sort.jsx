@@ -70,12 +70,19 @@ const SortWrapper = styled.div`
   .sort {
     &__item {
       display: flex;
+      ${({ theme }) => theme.sm`
+        display: block;
+      `}
       &:not(:last-child) {
-        margin-bottom: 7rem;
+        ${({ theme }) => theme.sm`
+          margin-bottom: 15rem;
+        `}
       }
     }
     &__name {
+      padding-top: 4rem;
       min-width: 100rem;
+      font-weight: 400;
     }
     &__content {
       display: flex;
@@ -85,8 +92,49 @@ const SortWrapper = styled.div`
     &__label {
       cursor: pointer;
     }
+    &__checkbox {
+      display: none;
+      &:checked {
+        + .sort__label {
+          &:after {
+            background-color: ${({ theme }) => theme.borderColorSort};
+            transform: scale(0.5);
+          }
+        }
+      }
+    }
     &__label {
-      padding: 12rem 10rem 12rem 2rem;
+      display: inline-block;
+      position: relative;
+      padding: 5rem 16rem 5rem calc(0.8em + 7px);
+      ${({ theme }) => theme.sm`
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      `}
+      &:before,
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: calc((0% - (100% - 3em)) - 4%);
+        width: calc(0.8em + 2px);
+        height: calc(0.8em + 2px);
+        border-radius: 0;
+        background-color: transparent;
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        z-index: 0;
+        ${({ theme }) => theme.sm`
+          top: calc((0% - (100% - 2.45em)) - 4%);
+        `}
+      }
+      &:before {
+        background-color: #fff;
+        border-width: calc(1em / 10);
+        border-color: ${({ theme }) => theme.borderColorSort};
+        border-radius: 2px;
+      }
     }
   }
 `

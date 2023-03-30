@@ -7,6 +7,10 @@ import ListsItem from './ListsItem'
 
 import axios from 'axios'
 
+import { ReactComponent as ImgButtonMore } from 'assets/icon/button_more.svg'
+import { ReactComponent as ImgSearchNone } from 'assets/icon/search_none.svg'
+import { ReactComponent as ImgLoading } from 'assets/icon/loading.svg'
+
 import styled from 'styled-components'
 
 const path = process.env.PUBLIC_URL
@@ -27,8 +31,9 @@ export default function Lists() {
       item: [],
     },
   ]
-  // 전체 리스트 배열
+  // 전체 리스트
   const [lists, setLists] = useState([])
+  const [listsLoading, setListsLoading] = useState(true)
   // sort 된 리스트 배열 (검색, sort)
   const [listsSort, setListsSort] = useState([])
   const [listsSortSearch, setListsSortSearch] = useState('')
@@ -121,6 +126,7 @@ export default function Lists() {
         : searchLists
 
     setListsSort(search)
+    setListsLimit(defaultLimit)
   }, [sortArray, lists, listsSortSearch])
 
   // [더보기] 더보기 버튼
@@ -134,9 +140,13 @@ export default function Lists() {
 
   useEffect(() => {
     // [리스트] 리스트 json 데이터 불러오기
-    axios
-      .get(`${path}/DB/portfolio.json`)
-      .then((json) => setLists(json.data.portfolio))
+    const dataFetch = async () => {
+      await axios
+        .get(`${path}/DB/portfolio.json`)
+        .then((json) => setLists(json.data.portfolio))
+      await setListsLoading(false)
+    }
+    dataFetch()
   }, [])
 
   useEffect(() => {
@@ -194,24 +204,42 @@ export default function Lists() {
           />
         </div>
         <div className="total">
-          총 <span>{listsSort.length}</span>개
+          총 <span className="total__num">{listsSort.length}</span>개
         </div>
       </ToolWrapper>
       <ListsWrapper>
-        {listsSort.length !== 0
-          ? listsSort.map((item, idx) => {
-              if (idx > listsLimit - 1) return null
-              return <ListsItem key={idx} item={item} />
-            })
-          : '결과가 없습니다'}
+        <div className="lists">
+          {!listsLoading ? (
+            listsSort.length !== 0 ? (
+              <div className="lists-wrap">
+                {listsSort.map((item, idx) => {
+                  if (idx > listsLimit - 1) return null
+                  return <ListsItem key={idx} item={item} />
+                })}
+              </div>
+            ) : (
+              <SearchNone>
+                <div className="search-none__icon">
+                  <ImgSearchNone />
+                </div>
+                <div className="search-none__title">검색 결과가 없습니다.</div>
+              </SearchNone>
+            )
+          ) : (
+            <div className="lists__none">
+              <ImgLoading />
+            </div>
+          )}
+        </div>
+        {listsSort.length > defaultLimit - 1 &&
+          listsSort.length > listsLimit && (
+            <ListsMore>
+              <button type="button" className="more__btn" onClick={listsMore}>
+                <ImgButtonMore /> <span className="more__title">더보기</span>
+              </button>
+            </ListsMore>
+          )}
       </ListsWrapper>
-      {listsSort.length > defaultLimit - 1 && (
-        <ListsMore>
-          <button type="button" onClick={listsMore}>
-            {listsSort.length > listsLimit ? '더보기' : '접기'}
-          </button>
-        </ListsMore>
-      )}
     </Container>
   )
 }
@@ -222,7 +250,7 @@ const ToolWrapper = styled.div`
     margin-bottom: 16rem;
     padding: 25rem;
     font-size: 16rem;
-    background-color: #f3f3f3;
+    background-color: ${({ theme }) => theme.bgSort};
     border-radius: 20px;
     &__title {
       font-weight: 700;
@@ -230,44 +258,128 @@ const ToolWrapper = styled.div`
         display: flex;
         justify-content: space-between;
         margin-bottom: 15rem;
+        ${({ theme }) => theme.xs`
+          display: block;
+        `}
       }
     }
   }
   .total {
     padding: 0 8rem 0 16rem;
+    font-weight: 600;
+    &__num {
+      color: ${({ theme }) => theme.pointColor};
+    }
   }
 `
 
 const ListsMore = styled.div`
-  margin-bottom: 80rem;
   text-align: center;
-  button {
-    min-width: 144rem;
-    padding: 16rem 48rem;
-    font-size: 16rem;
-    color: ${({ theme }) => theme.textColor};
-    border: ${({ theme }) => theme.borderColor};
-    border-radius: 15px;
-    cursor: pointer;
+  svg,
+  .more__title {
+    padding: 2rem 0;
+    vertical-align: bottom;
+  }
+  .more {
+    &__btn {
+      padding: 20rem 48rem;
+      font-size: 16rem;
+      color: ${({ theme }) => theme.textColor};
+      border-radius: 10px;
+      cursor: pointer;
+      svg {
+        display: inline-block;
+        width: 23rem;
+        margin-right: 5rem;
+        transition: transform 0.4s;
+        path {
+          fill: ${({ theme }) => theme.textColor};
+        }
+      }
+      &:hover {
+        svg {
+          transform: rotate(180deg);
+        }
+        .more__title {
+          &:before {
+            width: 100%;
+            transform: translateX(100%);
+            transition: width 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+          }
+        }
+      }
+    }
+    &__title {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2rem;
+        background-color: ${({ theme }) => theme.textColor};
+      }
+    }
   }
 `
 
 const ListsWrapper = styled.div`
-  margin-top: 80rem;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -10px;
-  > div {
-    flex: 0 0 33.3333%;
-    max-width: 33.3333%;
-    padding: 0 10px;
-    ${({ theme }) => theme.lg`
-      flex: 0 0 50%;
-      max-width: 50%;
-    `}
-    ${({ theme }) => theme.sm`
-      flex: 0 0 100%;
-      max-width: 100%;
-    `}
+  margin-bottom: 80rem;
+  .lists {
+    &-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -10px;
+    }
+    &__item {
+      flex: 0 0 33.3333%;
+      max-width: 33.3333%;
+      padding: 0 10px;
+      ${({ theme }) => theme.lg`
+        flex: 0 0 50%;
+        max-width: 50%;
+      `}
+      ${({ theme }) => theme.sm`
+        flex: 0 0 100%;
+        max-width: 100%;
+      `}
+    }
+    &__none {
+      svg {
+        display: block;
+        width: 110rem;
+        margin: auto;
+      }
+    }
+  }
+`
+
+const SearchNone = styled.div`
+  margin-top: 50rem;
+  text-align: center;
+  .search-none {
+    &__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 130rem;
+      height: 130rem;
+      margin: auto;
+      padding: 45rem;
+      background: ${({ theme }) => theme.bgSearchNone};
+      border-radius: 50%;
+      svg {
+        width: 50rem;
+        height: 50rem;
+      }
+    }
+    &__title {
+      margin-top: 10rem;
+      font-size: 20rem;
+      font-weight: 600;
+    }
   }
 `

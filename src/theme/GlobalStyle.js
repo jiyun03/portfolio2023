@@ -121,10 +121,10 @@ export const GlobalStyle = createGlobalStyle`
   html,
   body {
     position: relative;
-    background: ${({ theme }) => theme.bgHeader};
+    background: ${({ theme }) => theme.bgColor};
     color: ${({ theme }) => theme.textColor};
     font-family: 'AppleSDGothicNeo';
-    font-weight: 400;
+    font-weight: 300;
     font-size: 1px;
     line-height: 1.6;
     word-break: keep-all;

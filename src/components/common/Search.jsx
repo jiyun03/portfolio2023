@@ -40,6 +40,9 @@ export default function Search({ onChange }) {
 
 const SearchWrapper = styled.div`
   margin: -16rem;
+  ${({ theme }) => theme.xs`
+    margin: 0 -16rem;
+  `}
   .search {
     &-wrap {
       display: flex;
@@ -52,6 +55,9 @@ const SearchWrapper = styled.div`
         min-width: 2.8rem;
         height: 56rem;
         cursor: pointer;
+        ${({ theme }) => theme.xs`
+          pointer-events: none;
+        `}
         path {
           fill: ${({ theme }) => theme.textColor};
         }
@@ -67,6 +73,10 @@ const SearchWrapper = styled.div`
       visibility: hidden;
       overflow: hidden;
       transition: width 0.3s, visibility 0.3s;
+      ${({ theme }) => theme.xs`
+        width: calc(100% - 72rem);
+        visibility: visible;
+      `}
       input {
         width: 100%;
         height: 32rem;

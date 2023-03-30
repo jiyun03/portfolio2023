@@ -68,7 +68,7 @@ const HeaderWrapper = styled.header`
     justify-content: space-between;
     padding-right: 16rem;
     border-radius: 30px;
-    background-color: ${({ theme }) => theme.bgColor};
+    background-color: ${({ theme }) => theme.bgHeader};
     box-shadow: ${({ theme }) => theme.headerShadow};
     &__link {
       display: inline-block;

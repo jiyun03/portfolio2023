@@ -71,7 +71,7 @@ export default function ListsItem({ item }) {
   }
 
   return (
-    <ListsItemWrapper>
+    <ListsItemWrapper className="lists__item">
       {item.status === 'on' ? (
         <Link to={item.link} target="_blank" className="lists__link">
           <Content />
@@ -122,6 +122,12 @@ const ListsItemWrapper = styled.div`
     }
     &__content {
       display: flex;
+      &:not(:last-child) {
+        margin-bottom: 3.2rem;
+        ${({ theme }) => theme.sm`
+          margin-bottom: 5rem;
+        `}
+      }
       &-item {
         &--title {
           font-weight: 700;
@@ -138,10 +144,10 @@ const ListsItemWrapper = styled.div`
             color: ${({ theme }) => theme.textColor2};
             background: ${({ theme }) => theme.bgType};
             border-radius: 15px;
+            ${({ theme }) => theme.lg`
+              font-size: 14rem;
+            `}
           }
-        }
-        &:not(:last-child) {
-          margin-bottom: 3.2rem;
         }
       }
       &-wrap {
