@@ -6,7 +6,7 @@ export const lightTheme = {
   bgType: '#f1f1f1',
   bgSort: '#f3f3f3',
   textColor: '#31303E',
-  textColor2: '#787878',
+  textColor2: '#505050',
   borderColor: '1px solid #c2c2c2',
   borderColorSort: '#989898',
   pointColor: '#ff2928',

@@ -138,8 +138,8 @@ const ListsItemWrapper = styled.div`
           span {
             display: inline-block;
             margin-right: 8rem;
-            padding: 3.2rem 8rem 4.8rem;
-            font-size: 12rem;
+            padding: 4.8rem 8rem;
+            font-size: 13rem;
             line-height: 1;
             color: ${({ theme }) => theme.textColor2};
             background: ${({ theme }) => theme.bgType};

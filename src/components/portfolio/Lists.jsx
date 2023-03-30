@@ -3,6 +3,7 @@ import Container from 'components/common/Container'
 import Title from 'components/common/Title'
 import Search from 'components/common/Search'
 import Sort from 'components/common/Sort'
+import FloatButton from 'components/common/FloatButton'
 import ListsItem from './ListsItem'
 
 import axios from 'axios'
@@ -10,6 +11,7 @@ import axios from 'axios'
 import { ReactComponent as ImgButtonMore } from 'assets/icon/button_more.svg'
 import { ReactComponent as ImgSearchNone } from 'assets/icon/search_none.svg'
 import { ReactComponent as ImgLoading } from 'assets/icon/loading.svg'
+import { ReactComponent as ImgFilter } from 'assets/icon/filter.svg'
 
 import styled from 'styled-components'
 
@@ -61,6 +63,9 @@ export default function Lists() {
       item: listsSortType,
     },
   ]
+  // float
+  const [float, setFloat] = useState(false)
+  const [floatClick, setFloatClick] = useState(false)
 
   // 검색어 state 저장
   const searchChange = (e) => {
@@ -138,6 +143,16 @@ export default function Lists() {
     }
   }
 
+  // [float] 스크롤
+  const FloatScroll = () => {
+    if (window.scrollY > 150) {
+      setFloat(true)
+    } else {
+      setFloat(false)
+      setFloatClick(false)
+    }
+  }
+
   useEffect(() => {
     // [리스트] 리스트 json 데이터 불러오기
     const dataFetch = async () => {
@@ -147,9 +162,18 @@ export default function Lists() {
       await setListsLoading(false)
     }
     dataFetch()
+
+    // [float] 스크롤
+    window.addEventListener('scroll', FloatScroll)
+    return () => {
+      window.removeEventListener('scroll', FloatScroll)
+    }
   }, [])
 
   useEffect(() => {
+    // [리스트] sort 된 리스트 목록 state 업데이트
+    setListsSort(lists)
+
     if (lists.length !== 0) {
       // 연도, 타입 설정
       const yearsMap = new Map()
@@ -169,11 +193,6 @@ export default function Lists() {
     }
   }, [lists])
 
-  useEffect(() => {
-    // [리스트] sort 된 리스트 목록 state 업데이트
-    setListsSort(lists)
-  }, [lists])
-
   return (
     <Container>
       <Title
@@ -189,20 +208,27 @@ export default function Lists() {
         }}
       />
       <ToolWrapper>
-        <div className="tool">
-          <div className="tool__title-wrap">
-            <div className="tool__title">정렬</div>
-            <Search onChange={searchChange} />
+        <SortComponentWrapper float={floatClick}>
+          <div className="tool">
+            {floatClick && (
+              <div className="tool__close" onClick={() => setFloatClick(false)}>
+                x
+              </div>
+            )}
+            <div className="tool__title-wrap">
+              <div className="tool__title">정렬</div>
+              <Search onChange={searchChange} />
+            </div>
+            <Sort
+              content={sortContents}
+              sort={{
+                sortDefault: sortDefault,
+                sortArray: sortArray,
+                setSortArray: setSortArray,
+              }}
+            />
           </div>
-          <Sort
-            content={sortContents}
-            sort={{
-              sortDefault: sortDefault,
-              sortArray: sortArray,
-              setSortArray: setSortArray,
-            }}
-          />
-        </div>
+        </SortComponentWrapper>
         <div className="total">
           총 <span className="total__num">{listsSort.length}</span>개
         </div>
@@ -240,13 +266,32 @@ export default function Lists() {
             </ListsMore>
           )}
       </ListsWrapper>
+      <FloatButton
+        icon={<ImgFilter />}
+        action={{
+          action: float,
+          click: () => setFloatClick(!floatClick),
+        }}
+      />
     </Container>
   )
 }
 
 const ToolWrapper = styled.div`
   margin-bottom: 16rem;
+  .total {
+    padding: 0 8rem 0 16rem;
+    font-weight: 600;
+    &__num {
+      color: ${({ theme }) => theme.pointColor};
+    }
+  }
+`
+
+const SortComponentWrapper = styled.div`
+  margin-bottom: 16rem;
   .tool {
+    position: relative;
     margin-bottom: 16rem;
     padding: 25rem;
     font-size: 16rem;
@@ -263,14 +308,33 @@ const ToolWrapper = styled.div`
         `}
       }
     }
-  }
-  .total {
-    padding: 0 8rem 0 16rem;
-    font-weight: 600;
-    &__num {
-      color: ${({ theme }) => theme.pointColor};
+    &__close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: -15rem;
+      top: -15rem;
+      width: 40rem;
+      height: 40rem;
+      border-radius: 50%;
+      color: #fff;
+      background-color: #000;
     }
   }
+  ${(props) =>
+    props.float &&
+    `
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    .tool {
+      border: 1px solid #ccc;
+      // box-shadow: 0 0 30px rgba(0,0,0,0.05);
+    }
+  `}
 `
 
 const ListsMore = styled.div`
