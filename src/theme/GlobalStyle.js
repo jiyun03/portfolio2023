@@ -40,23 +40,6 @@ import AppleSDGothicNeoHWoff2 from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicN
 import AppleSDGothicNeoHWoff from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoH.woff'
 import AppleSDGothicNeoHTtf from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoH.ttf'
 
-// NotoSansKR
-import NotoSansKRWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Regular.woff2'
-import NotoSansKRWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Regular.woff'
-import NotoSansKROtf from 'assets/fonts/NotoSansKR/NotoSansKR-Regular.otf'
-
-import NotoSansKRMediumWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Medium.woff2'
-import NotoSansKRMediumWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Medium.woff'
-import NotoSansKRMediumOtf from 'assets/fonts/NotoSansKR/NotoSansKR-Medium.otf'
-
-import NotoSansKRBoldWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Bold.woff2'
-import NotoSansKRBoldWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Bold.woff'
-import NotoSansKRBoldOtf from 'assets/fonts/NotoSansKR/NotoSansKR-Bold.otf'
-
-import NotoSansKRBlackWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Black.woff2'
-import NotoSansKRBlackWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Black.woff'
-import NotoSansKRBlackOtf from 'assets/fonts/NotoSansKR/NotoSansKR-Black.otf'
-
 export const GlobalStyle = createGlobalStyle`
   ${reset}
   // Montserrat
@@ -134,47 +117,12 @@ export const GlobalStyle = createGlobalStyle`
       url('${AppleSDGothicNeoHWoff}') format('woff'),
       url('${AppleSDGothicNeoHTtf}') format('truetype');
   }
-  // NotoSansKR
-  @font-face {
-    font-family: 'NotoSansKR';
-    font-weight: 400;
-    src: 
-      url('${NotoSansKROtf}') format('opentype'),
-      url('${NotoSansKRWoff2}') format('woff2'),
-      url('${NotoSansKRWoff}') format('woff');
-  }
-  @font-face {
-    font-family: 'NotoSansKR';
-    font-weight: 500;
-    src:
-        url('${NotoSansKRMediumOtf}') format('opentype'),
-        url('${NotoSansKRMediumWoff2}') format('woff2'),
-        url('${NotoSansKRMediumWoff}') format('woff');
-  }
-  @font-face {
-    font-family: 'NotoSansKR';
-    font-weight: 700;
-    src:
-        url('${NotoSansKRBoldOtf}') format('opentype'),
-        url('${NotoSansKRBoldWoff2}') format('woff2'),
-        url('${NotoSansKRBoldWoff}') format('woff');
-  }
-  @font-face {
-    font-family: 'NotoSansKR';
-    font-weight: 900;
-    src:
-        url('${NotoSansKRBlackOtf}') format('opentype'),
-        url('${NotoSansKRBlackWoff2}') format('woff2'), 
-        url('${NotoSansKRBlackWoff}') format('woff');
-  }
 
   html,
   body {
     position: relative;
     background: ${({ theme }) => theme.bgHeader};
     color: ${({ theme }) => theme.textColor};
-    font-family: 'NanumBarunGothic';
-    font-family: 'NotoSansKR';
     font-family: 'AppleSDGothicNeo';
     font-weight: 400;
     font-size: 1px;
