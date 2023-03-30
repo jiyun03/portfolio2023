@@ -11,27 +11,51 @@ import SaolDisplayWoff from 'assets/fonts/SaolDisplay/SaolDisplay-Regular.woff'
 import SaolDisplayWoff2 from 'assets/fonts/SaolDisplay/SaolDisplay-Regular.woff2'
 import SaolDisplaySvg from 'assets/fonts/SaolDisplay/SaolDisplay-Regular.svg'
 
-// NanumBarunGothic
-import NanumBarunGothicWoff2 from 'assets/fonts/NanumBarunGothic/NanumBarunGothic.woff2'
-import NanumBarunGothicWoff from 'assets/fonts/NanumBarunGothic/NanumBarunGothic.woff'
-import NanumBarunGothicOtf from 'assets/fonts/NanumBarunGothic/NanumBarunGothic.otf'
+// AppleSDGothicNeo
+import AppleSDGothicNeoTWoff2 from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoT.woff2'
+import AppleSDGothicNeoTWoff from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoT.woff'
+import AppleSDGothicNeoTTtf from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoT.ttf'
 
-import NanumBarunGothicBoldWoff2 from 'assets/fonts/NanumBarunGothic/NanumBarunGothicBold.woff2'
-import NanumBarunGothicBoldWoff from 'assets/fonts/NanumBarunGothic/NanumBarunGothicBold.woff'
-import NanumBarunGothicBoldOtf from 'assets/fonts/NanumBarunGothic/NanumBarunGothicBold.otf'
+import AppleSDGothicNeoLWoff2 from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoL.woff2'
+import AppleSDGothicNeoLWoff from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoL.woff'
+import AppleSDGothicNeoLTtf from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoL.ttf'
+
+import AppleSDGothicNeoMWoff2 from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoM.woff2'
+import AppleSDGothicNeoMWoff from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoM.woff'
+import AppleSDGothicNeoMTtf from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoM.ttf'
+
+import AppleSDGothicNeoSBWoff2 from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoSB.woff2'
+import AppleSDGothicNeoSBWoff from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoSB.woff'
+import AppleSDGothicNeoSBTtf from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoSB.ttf'
+
+import AppleSDGothicNeoBWoff2 from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoB.woff2'
+import AppleSDGothicNeoBWoff from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoB.woff'
+import AppleSDGothicNeoBTtf from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoB.ttf'
+
+import AppleSDGothicNeoEBWoff2 from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoEB.woff2'
+import AppleSDGothicNeoEBWoff from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoEB.woff'
+import AppleSDGothicNeoEBTtf from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoEB.ttf'
+
+import AppleSDGothicNeoHWoff2 from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoH.woff2'
+import AppleSDGothicNeoHWoff from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoH.woff'
+import AppleSDGothicNeoHTtf from 'assets/fonts/AppleSDGothicNeo/AppleSDGothicNeoH.ttf'
 
 // NotoSansKR
 import NotoSansKRWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Regular.woff2'
 import NotoSansKRWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Regular.woff'
+import NotoSansKROtf from 'assets/fonts/NotoSansKR/NotoSansKR-Regular.otf'
 
 import NotoSansKRMediumWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Medium.woff2'
 import NotoSansKRMediumWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Medium.woff'
+import NotoSansKRMediumOtf from 'assets/fonts/NotoSansKR/NotoSansKR-Medium.otf'
 
 import NotoSansKRBoldWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Bold.woff2'
 import NotoSansKRBoldWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Bold.woff'
+import NotoSansKRBoldOtf from 'assets/fonts/NotoSansKR/NotoSansKR-Bold.otf'
 
 import NotoSansKRBlackWoff2 from 'assets/fonts/NotoSansKR/NotoSansKR-Black.woff2'
 import NotoSansKRBlackWoff from 'assets/fonts/NotoSansKR/NotoSansKR-Black.woff'
+import NotoSansKRBlackOtf from 'assets/fonts/NotoSansKR/NotoSansKR-Black.otf'
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -53,49 +77,93 @@ export const GlobalStyle = createGlobalStyle`
         url('${SaolDisplayWoff}') format('woff'),
         url('${SaolDisplaySvg}#Montserrat-SemiBold') format('svg');
   }
-  // NanumBarunGothic
+  // AppleSDGothicNeo
   @font-face {
-    font-family: 'NanumBarunGothic';
-    font-weight: 400;
+    font-family: 'AppleSDGothicNeo';
+    font-weight: 100;
     src: 
-        url('${NanumBarunGothicWoff2}') format('woff2'), 
-        url('${NanumBarunGothicWoff}') format('woff'),
-        url('${NanumBarunGothicOtf}') format('opentype');
+      url('${AppleSDGothicNeoTWoff2}') format('woff2'),
+      url('${AppleSDGothicNeoTWoff}') format('woff'),
+      url('${AppleSDGothicNeoTTtf}') format('truetype');
   }
   @font-face {
-    font-family: 'NanumBarunGothic';
+    font-family: 'AppleSDGothicNeo';
+    font-weight: 300;
+    src: 
+      url('${AppleSDGothicNeoLWoff2}') format('woff2'),
+      url('${AppleSDGothicNeoLWoff}') format('woff'),
+      url('${AppleSDGothicNeoLTtf}') format('truetype');
+  }
+  @font-face {
+    font-family: 'AppleSDGothicNeo';
+    font-weight: 400;
+    src: 
+      url('${AppleSDGothicNeoMWoff2}') format('woff2'),
+      url('${AppleSDGothicNeoMWoff}') format('woff'),
+      url('${AppleSDGothicNeoMTtf}') format('truetype');
+  }
+  @font-face {
+    font-family: 'AppleSDGothicNeo';
+    font-weight: 600;
+    src: 
+      url('${AppleSDGothicNeoSBWoff2}') format('woff2'),
+      url('${AppleSDGothicNeoSBWoff}') format('woff'),
+      url('${AppleSDGothicNeoSBTtf}') format('truetype');
+  }
+  @font-face {
+    font-family: 'AppleSDGothicNeo';
     font-weight: 700;
-    src:
-        url('${NanumBarunGothicBoldWoff2}') format('woff2'), 
-        url('${NanumBarunGothicBoldWoff}') format('woff'),
-        url('${NanumBarunGothicBoldOtf}') format('opentype');
+    src: 
+      url('${AppleSDGothicNeoBWoff2}') format('woff2'),
+      url('${AppleSDGothicNeoBWoff}') format('woff'),
+      url('${AppleSDGothicNeoBTtf}') format('truetype');
+  }
+  @font-face {
+    font-family: 'AppleSDGothicNeo';
+    font-weight: 800;
+    src: 
+      url('${AppleSDGothicNeoEBWoff2}') format('woff2'),
+      url('${AppleSDGothicNeoEBWoff}') format('woff'),
+      url('${AppleSDGothicNeoEBTtf}') format('truetype');
+  }
+  @font-face {
+    font-family: 'AppleSDGothicNeo';
+    font-weight: 900;
+    src: 
+      url('${AppleSDGothicNeoHWoff2}') format('woff2'),
+      url('${AppleSDGothicNeoHWoff}') format('woff'),
+      url('${AppleSDGothicNeoHTtf}') format('truetype');
   }
   // NotoSansKR
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 400;
-    src:
-        url('${NotoSansKRWoff2}') format('woff2'), 
-        url('${NotoSansKRWoff}') format('woff');
+    src: 
+      url('${NotoSansKROtf}') format('opentype'),
+      url('${NotoSansKRWoff2}') format('woff2'),
+      url('${NotoSansKRWoff}') format('woff');
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 500;
     src:
-        url('${NotoSansKRMediumWoff2}') format('woff2'), 
+        url('${NotoSansKRMediumOtf}') format('opentype'),
+        url('${NotoSansKRMediumWoff2}') format('woff2'),
         url('${NotoSansKRMediumWoff}') format('woff');
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 700;
     src:
-        url('${NotoSansKRBoldWoff2}') format('woff2'), 
+        url('${NotoSansKRBoldOtf}') format('opentype'),
+        url('${NotoSansKRBoldWoff2}') format('woff2'),
         url('${NotoSansKRBoldWoff}') format('woff');
   }
   @font-face {
     font-family: 'NotoSansKR';
     font-weight: 900;
     src:
+        url('${NotoSansKRBlackOtf}') format('opentype'),
         url('${NotoSansKRBlackWoff2}') format('woff2'), 
         url('${NotoSansKRBlackWoff}') format('woff');
   }
@@ -107,6 +175,7 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.textColor};
     font-family: 'NanumBarunGothic';
     font-family: 'NotoSansKR';
+    font-family: 'AppleSDGothicNeo';
     font-weight: 400;
     font-size: 1px;
     line-height: 1.6;
