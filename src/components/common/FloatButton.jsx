@@ -28,11 +28,11 @@ export default function FloatButton({ action, icon }) {
       {transitions(
         (style, item) =>
           item && (
-            <AnimatedSVGWrapper style={style}>
+            <AnimatedWrapper style={style}>
               <div className="float__icon" onClick={action.click}>
                 {icon}
               </div>
-            </AnimatedSVGWrapper>
+            </AnimatedWrapper>
           )
       )}
     </FloatButtonWrapper>
@@ -72,11 +72,9 @@ const FloatButtonWrapper = styled.div`
   }
 `
 
-const SVGWrapper = styled.div`
+const AnimatedWrapper = styled(animated.div)`
   color: ${({ theme }) => theme.textColor};
   svg {
     display: block;
   }
 `
-
-const AnimatedSVGWrapper = animated(SVGWrapper)

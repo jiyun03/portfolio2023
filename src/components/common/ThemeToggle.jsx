@@ -34,15 +34,15 @@ export default function ThemeToggle() {
         {transitions((style, item) =>
           item ? (
             <Positioner>
-              <AnimatedSVGWrapper style={style}>
+              <AnimatedWrapper style={style}>
                 <IconThemeDark />
-              </AnimatedSVGWrapper>
+              </AnimatedWrapper>
             </Positioner>
           ) : (
             <Positioner>
-              <AnimatedSVGWrapper style={style}>
+              <AnimatedWrapper style={style}>
                 <IconThemeLight />
-              </AnimatedSVGWrapper>
+              </AnimatedWrapper>
             </Positioner>
           )
         )}
@@ -82,11 +82,9 @@ const Positioner = styled.div`
   transform: translate(-50%, -50%);
 `
 
-const SVGWrapper = styled.div`
+const AnimatedWrapper = styled(animated.div)`
   color: ${({ theme }) => theme.textColor};
   svg {
     display: block;
   }
 `
-
-const AnimatedSVGWrapper = animated(SVGWrapper)

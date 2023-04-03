@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Container from 'components/common/Container'
 import Title from 'components/common/Title'
 import Search from 'components/common/Search'
@@ -13,7 +13,7 @@ import { ReactComponent as ImgSearchNone } from 'assets/icon/search_none.svg'
 import { ReactComponent as ImgLoading } from 'assets/icon/loading.svg'
 import { ReactComponent as ImgFilter } from 'assets/icon/filter.svg'
 
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 const path = process.env.PUBLIC_URL
 
@@ -64,6 +64,7 @@ export default function Lists() {
     },
   ]
   // float
+  const floatRef = useRef(null)
   const [float, setFloat] = useState(false)
   const [floatClick, setFloatClick] = useState(false)
 
@@ -143,14 +144,23 @@ export default function Lists() {
     }
   }
 
-  // [float] 스크롤
-  const FloatScroll = () => {
-    if (window.scrollY > 150) {
+  // [float] scroll
+  let floatHeight
+  let floatBottom
+  const floatScroll = () => {
+    if (window.scrollY > floatBottom) {
       setFloat(true)
     } else {
       setFloat(false)
       setFloatClick(false)
     }
+  }
+
+  // [float] resize
+  const floatResize = () => {
+    floatHeight = floatRef.current.firstElementChild.offsetHeight
+    floatBottom = floatRef.current.offsetTop + floatHeight
+    floatRef.current.style.height = `${floatHeight}px`
   }
 
   useEffect(() => {
@@ -163,12 +173,25 @@ export default function Lists() {
     }
     dataFetch()
 
-    // [float] 스크롤
-    window.addEventListener('scroll', FloatScroll)
+    // [float] scroll, resize
+    setTimeout(() => {
+      floatResize()
+    }, 500)
+    window.addEventListener('scroll', floatScroll)
+    window.addEventListener('resize', floatResize)
     return () => {
-      window.removeEventListener('scroll', FloatScroll)
+      window.removeEventListener('scroll', floatScroll)
+      window.removeEventListener('resize', floatResize)
     }
   }, [])
+
+  useEffect(() => {
+    if (floatClick && floatRef.current) {
+      floatRef.current.firstElementChild.classList.add('active')
+    } else {
+      floatRef.current.firstElementChild.classList.remove('active')
+    }
+  }, [floatClick])
 
   useEffect(() => {
     // [리스트] sort 된 리스트 목록 state 업데이트
@@ -208,7 +231,7 @@ export default function Lists() {
         }}
       />
       <ToolWrapper>
-        <SortComponentWrapper float={floatClick}>
+        <div className="tool-wrap" ref={floatRef}>
           <div className="tool">
             {floatClick && (
               <div className="tool__close" onClick={() => setFloatClick(false)}>
@@ -228,7 +251,7 @@ export default function Lists() {
               }}
             />
           </div>
-        </SortComponentWrapper>
+        </div>
         <div className="total">
           총 <span className="total__num">{listsSort.length}</span>개
         </div>
@@ -277,26 +300,27 @@ export default function Lists() {
   )
 }
 
-const ToolWrapper = styled.div`
-  margin-bottom: 16rem;
-  .total {
-    padding: 0 8rem 0 16rem;
-    font-weight: 600;
-    &__num {
-      color: ${({ theme }) => theme.pointColor};
-    }
-  }
+const bounceUp = keyframes`
+  0%   { transform: translate(-50%, 100%); }
+  100% { transform: translate(-50%, 0); }
 `
 
-const SortComponentWrapper = styled.div`
+const ToolWrapper = styled.div`
   margin-bottom: 16rem;
   .tool {
     position: relative;
-    margin-bottom: 16rem;
     padding: 25rem;
     font-size: 16rem;
     background-color: ${({ theme }) => theme.bgSort};
     border-radius: 20px;
+    &.active {
+      position: fixed;
+      bottom: 10rem;
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 100;
+      animation: ${bounceUp} 0.2s linear;
+    }
     &__title {
       font-weight: 700;
       &-wrap {
@@ -322,19 +346,14 @@ const SortComponentWrapper = styled.div`
       background-color: #000;
     }
   }
-  ${(props) =>
-    props.float &&
-    `
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    .tool {
-      border: 1px solid #ccc;
-      // box-shadow: 0 0 30px rgba(0,0,0,0.05);
+  .total {
+    margin-top: 16rem;
+    padding: 0 8rem 0 16rem;
+    font-weight: 600;
+    &__num {
+      color: ${({ theme }) => theme.pointColor};
     }
-  `}
+  }
 `
 
 const ListsMore = styled.div`
