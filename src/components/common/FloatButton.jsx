@@ -48,15 +48,9 @@ const FloatButtonWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 70rem;
-      height: 70rem;
-      background-color: #484848;
-      backdrop-filter: saturate(180%) blur(20px);
-      background-image: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.1),
-        rgba(0, 0, 0, 0.1)
-      );
+      width: 60rem;
+      height: 60rem;
+      background-color: ${({ theme }) => theme.btnDark};
       border-radius: 50%;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       cursor: pointer;
@@ -64,8 +58,8 @@ const FloatButtonWrapper = styled.div`
     }
   }
   svg {
-    width: 30rem;
-    height: 30rem;
+    width: 25rem;
+    height: 25rem;
     path {
       fill: #fff;
     }

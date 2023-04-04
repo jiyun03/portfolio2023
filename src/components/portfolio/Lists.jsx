@@ -5,13 +5,17 @@ import Search from 'components/common/Search'
 import Sort from 'components/common/Sort'
 import FloatButton from 'components/common/FloatButton'
 import ListsItem from './ListsItem'
+import Portal from 'components/common/Portal'
+import Dimmed from 'components/common/Dimmed'
 
 import axios from 'axios'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 
 import { ReactComponent as ImgButtonMore } from 'assets/icon/button_more.svg'
 import { ReactComponent as ImgSearchNone } from 'assets/icon/search_none.svg'
 import { ReactComponent as ImgLoading } from 'assets/icon/loading.svg'
 import { ReactComponent as ImgFilter } from 'assets/icon/filter.svg'
+import { ReactComponent as ImgSortClose } from 'assets/icon/sort_close.svg'
 
 import styled, { keyframes } from 'styled-components'
 
@@ -65,6 +69,7 @@ export default function Lists() {
   ]
   // float
   const floatRef = useRef(null)
+  const [isMobile, setIsMobile] = useState(false)
   const [float, setFloat] = useState(false)
   const [floatClick, setFloatClick] = useState(false)
 
@@ -148,7 +153,7 @@ export default function Lists() {
   let floatHeight
   let floatBottom
   const floatScroll = () => {
-    if (window.scrollY > floatBottom) {
+    if (window.scrollY > floatBottom + 25) {
       setFloat(true)
     } else {
       setFloat(false)
@@ -156,8 +161,21 @@ export default function Lists() {
     }
   }
 
-  // [float] resize
-  const floatResize = () => {
+  const floatClickState = () => {
+    setFloatClick(!floatClick)
+  }
+
+  // [resize]
+  const resizeSetting = () => {
+    // view 설정
+    if (window.innerWidth <= 600) {
+      setIsMobile(true)
+    } else {
+      setIsMobile(false)
+    }
+
+    // float
+    setFloatClick(false)
     floatHeight = floatRef.current.firstElementChild.offsetHeight
     floatBottom = floatRef.current.offsetTop + floatHeight
     floatRef.current.style.height = `${floatHeight}px`
@@ -175,23 +193,30 @@ export default function Lists() {
 
     // [float] scroll, resize
     setTimeout(() => {
-      floatResize()
+      resizeSetting()
     }, 500)
     window.addEventListener('scroll', floatScroll)
-    window.addEventListener('resize', floatResize)
+    window.addEventListener('resize', resizeSetting)
     return () => {
       window.removeEventListener('scroll', floatScroll)
-      window.removeEventListener('resize', floatResize)
+      window.removeEventListener('resize', resizeSetting)
     }
   }, [])
 
   useEffect(() => {
     if (floatClick && floatRef.current) {
-      floatRef.current.firstElementChild.classList.add('active')
+      floatRef.current.classList.add('active')
     } else {
-      floatRef.current.firstElementChild.classList.remove('active')
+      floatRef.current.classList.remove('active')
     }
-  }, [floatClick])
+
+    // scrollLock
+    if (isMobile && floatClick) {
+      disableBodyScroll(floatRef.current)
+    } else {
+      enableBodyScroll(floatRef.current)
+    }
+  }, [floatClick, isMobile])
 
   useEffect(() => {
     // [리스트] sort 된 리스트 목록 state 업데이트
@@ -234,8 +259,8 @@ export default function Lists() {
         <div className="tool-wrap" ref={floatRef}>
           <div className="tool">
             {floatClick && (
-              <div className="tool__close" onClick={() => setFloatClick(false)}>
-                x
+              <div className="tool__close" onClick={floatClickState}>
+                <ImgSortClose />
               </div>
             )}
             <div className="tool__title-wrap">
@@ -293,14 +318,26 @@ export default function Lists() {
         icon={<ImgFilter />}
         action={{
           action: float,
-          click: () => setFloatClick(!floatClick),
+          click: floatClickState,
         }}
       />
+      {isMobile && floatClick && (
+        <Portal>
+          <Dimmed click={floatClickState} />
+        </Portal>
+      )}
     </Container>
   )
 }
 
 const bounceUp = keyframes`
+  0%   { opacity:0; transform: translate(-50%, 100%); }
+  30%  { transform: translate(-50%, -10%); }
+  60%  { opacity:1; transform: translate(-50%, 10%); }
+  100% { transform: translate(-50%, 0); }
+`
+
+const showUp = keyframes`
   0%   { transform: translate(-50%, 100%); }
   100% { transform: translate(-50%, 0); }
 `
@@ -313,13 +350,44 @@ const ToolWrapper = styled.div`
     font-size: 16rem;
     background-color: ${({ theme }) => theme.bgSort};
     border-radius: 20px;
-    &.active {
-      position: fixed;
-      bottom: 10rem;
-      left: 50%;
-      transform: translate(-50%, 0);
-      z-index: 100;
-      animation: ${bounceUp} 0.2s linear;
+    &-wrap {
+      position: relative;
+      &:not(.active) {
+        height: auto !important;
+      }
+      &.active {
+        .tool {
+          position: fixed;
+          bottom: 20rem;
+          left: 50%;
+          width: 50%;
+          border: ${({ theme }) => theme.borderColor};
+          transform: translate(-50%, 0);
+          animation: ${bounceUp} 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+          z-index: 1200;
+          ${({ theme }) => theme.lg`
+            width: 70%;
+          `}
+          ${({ theme }) => theme.sm`
+            bottom: 0;
+            width: 100%;
+            background-color: ${theme.bgSortSm};
+            border-radius: 20px 20px 0 0;
+            border: none;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.15);
+            animation: ${showUp} 0.3s;
+            .sort {
+              overflow-y:scroll;
+              max-height: 25vh;
+            }
+            &__close {
+              left: initial;
+              right: 20rem;
+              top: 20rem;
+            }
+          `}
+        }
+      }
     }
     &__title {
       font-weight: 700;
@@ -327,7 +395,7 @@ const ToolWrapper = styled.div`
         display: flex;
         justify-content: space-between;
         margin-bottom: 15rem;
-        ${({ theme }) => theme.xs`
+        ${({ theme }) => theme.sm`
           display: block;
         `}
       }
@@ -337,13 +405,19 @@ const ToolWrapper = styled.div`
       align-items: center;
       justify-content: center;
       position: absolute;
-      left: -15rem;
+      left: -10rem;
       top: -15rem;
       width: 40rem;
       height: 40rem;
+      padding: 12rem;
       border-radius: 50%;
-      color: #fff;
-      background-color: #000;
+      background-color: ${({ theme }) => theme.btnDark};
+      cursor: pointer;
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
     }
   }
   .total {
@@ -358,6 +432,7 @@ const ToolWrapper = styled.div`
 
 const ListsMore = styled.div`
   text-align: center;
+  margin-top: -50rem;
   svg,
   .more__title {
     padding: 2rem 0;
@@ -410,7 +485,10 @@ const ListsMore = styled.div`
 `
 
 const ListsWrapper = styled.div`
-  margin-bottom: 80rem;
+  margin-bottom: 70rem;
+  ${({ theme }) => theme.sm`
+    margin-bottom: 40rem;
+  `}
   .lists {
     &-wrap {
       display: flex;
@@ -454,6 +532,11 @@ const SearchNone = styled.div`
       padding: 45rem;
       background: ${({ theme }) => theme.bgSearchNone};
       border-radius: 50%;
+      ${({ theme }) => theme.sm`
+        width: 100rem;
+        height: 100rem;
+        padding: 30rem;
+      `}
       svg {
         width: 50rem;
         height: 50rem;

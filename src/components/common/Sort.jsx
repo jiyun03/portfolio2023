@@ -6,7 +6,7 @@ export default function Sort({ content, sort }) {
   const setSortArray = sort.setSortArray
 
   return (
-    <SortWrapper>
+    <SortWrapper className="sort">
       {content.map((item, idx) => {
         return (
           <div className="sort__item" key={idx}>

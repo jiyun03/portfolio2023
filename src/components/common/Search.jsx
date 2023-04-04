@@ -40,7 +40,7 @@ export default function Search({ onChange }) {
 
 const SearchWrapper = styled.div`
   margin: -16rem;
-  ${({ theme }) => theme.xs`
+  ${({ theme }) => theme.sm`
     margin: 0 -16rem;
   `}
   .search {
@@ -55,7 +55,7 @@ const SearchWrapper = styled.div`
         min-width: 2.8rem;
         height: 56rem;
         cursor: pointer;
-        ${({ theme }) => theme.xs`
+        ${({ theme }) => theme.sm`
           pointer-events: none;
         `}
         path {
@@ -73,7 +73,7 @@ const SearchWrapper = styled.div`
       visibility: hidden;
       overflow: hidden;
       transition: width 0.3s, visibility 0.3s;
-      ${({ theme }) => theme.xs`
+      ${({ theme }) => theme.sm`
         width: calc(100% - 72rem);
         visibility: visible;
       `}
