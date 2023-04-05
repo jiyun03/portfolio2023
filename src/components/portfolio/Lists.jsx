@@ -73,6 +73,15 @@ export default function Lists() {
   const [float, setFloat] = useState(false)
   const [floatClick, setFloatClick] = useState(false)
 
+  // [더보기] 더보기 버튼
+  const listsMore = () => {
+    if (listsSort.length > listsLimit) {
+      setListsLimit(listsLimit + 6)
+    } else {
+      setListsLimit(defaultLimit)
+    }
+  }
+
   // 검색어 state 저장
   const searchChange = (e) => {
     const keyword = e.target.value.toLowerCase()
@@ -140,14 +149,28 @@ export default function Lists() {
     setListsLimit(defaultLimit)
   }, [sortArray, lists, listsSortSearch])
 
-  // [더보기] 더보기 버튼
-  const listsMore = () => {
-    if (listsSort.length > listsLimit) {
-      setListsLimit(listsLimit + 6)
-    } else {
-      setListsLimit(defaultLimit)
+  useEffect(() => {
+    // [리스트] sort 된 리스트 목록 state 업데이트
+    setListsSort(lists)
+
+    if (lists.length !== 0) {
+      // 연도, 타입 설정
+      const yearsMap = new Map()
+      const typesMap = new Map()
+
+      lists.forEach((item) => {
+        const year = item.date.split('.')[0]
+        const type = item.type.split('|')
+        yearsMap.set(year, { id: year, name: `${year}년` })
+        type.forEach((itemType) => {
+          typesMap.set(itemType, { id: itemType, name: itemType })
+        })
+      })
+
+      setListsSortYear([...yearsMap.values()])
+      setListsSortType([...typesMap.values()])
     }
-  }
+  }, [lists])
 
   // [float] scroll
   let floatHeight
@@ -217,29 +240,6 @@ export default function Lists() {
       enableBodyScroll(floatRef.current)
     }
   }, [floatClick, isMobile])
-
-  useEffect(() => {
-    // [리스트] sort 된 리스트 목록 state 업데이트
-    setListsSort(lists)
-
-    if (lists.length !== 0) {
-      // 연도, 타입 설정
-      const yearsMap = new Map()
-      const typesMap = new Map()
-
-      lists.forEach((item) => {
-        const year = item.date.split('.')[0]
-        const type = item.type.split('|')
-        yearsMap.set(year, { id: year, name: `${year}년` })
-        type.forEach((itemType) => {
-          typesMap.set(itemType, { id: itemType, name: itemType })
-        })
-      })
-
-      setListsSortYear([...yearsMap.values()])
-      setListsSortType([...typesMap.values()])
-    }
-  }, [lists])
 
   return (
     <Container>
