@@ -11,7 +11,7 @@ export default function PointItem({ item }) {
       <div>
         {tag.length !== 0 &&
           tag.map((tags, idx) => {
-            return <span>{tags}</span>
+            return <span key={idx}>{tags}</span>
           })}
       </div>
     </PointItemWrapper>

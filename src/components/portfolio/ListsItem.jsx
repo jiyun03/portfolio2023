@@ -23,7 +23,7 @@ export default function ListsItem({ item }) {
         name: '기술스택',
         class: 'type',
         content: types.map((type, idx) => {
-          return <span key={idx}>#{type}</span>
+          return <span key={idx}>{type}</span>
         }),
       },
     ]

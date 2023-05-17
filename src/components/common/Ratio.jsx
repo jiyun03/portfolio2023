@@ -27,6 +27,11 @@ const RatioWrapper = styled.div`
       `
       padding-top: 66.66%
     `}
+    ${(props) =>
+      props.ratio === '1_1' &&
+      `
+      padding-top: 100%
+    `}
   }
   .ratio {
     &__content {

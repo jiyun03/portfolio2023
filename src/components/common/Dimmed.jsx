@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-export default function Dimmed({ click }) {
-  return <DimmedWrapper onClick={click}></DimmedWrapper>
+export default function Dimmed({ click, children }) {
+  return <DimmedWrapper onClick={click}>{children}</DimmedWrapper>
 }
 
 const DimmedWrapper = styled.div`
@@ -12,4 +12,5 @@ const DimmedWrapper = styled.div`
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 1100;
+  cursor: pointer;
 `

@@ -321,11 +321,7 @@ export default function Lists() {
           click: floatClickState,
         }}
       />
-      {isMobile && floatClick && (
-        <Portal>
-          <Dimmed click={floatClickState} />
-        </Portal>
-      )}
+      {isMobile && floatClick && <Portal dimmed={floatClickState} />}
     </Container>
   )
 }
