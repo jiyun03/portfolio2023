@@ -6,7 +6,6 @@ import Sort from 'components/common/Sort'
 import FloatButton from 'components/common/FloatButton'
 import ListsItem from './ListsItem'
 import Portal from 'components/common/Portal'
-import Dimmed from 'components/common/Dimmed'
 
 import axios from 'axios'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
